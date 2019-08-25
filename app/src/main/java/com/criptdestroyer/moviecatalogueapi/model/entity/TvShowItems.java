@@ -1,4 +1,4 @@
-package com.criptdestroyer.moviecatalogueapi.model;
+package com.criptdestroyer.moviecatalogueapi.model.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,19 +6,23 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MovieItems implements Parcelable {
+public class TvShowItems implements Parcelable {
     private int id;
     private String title;
     private String description;
     private String date;
     private String photo;
 
-    public MovieItems(JSONObject object){
+    public TvShowItems(){
+
+    }
+
+    public TvShowItems(JSONObject object){
         try{
             this.id = object.getInt("id");
-            this.title = object.getString("title");
+            this.title = object.getString("name");
             this.description= object.getString("overview");
-            this.date= object.getString("release_date");
+            this.date= object.getString("first_air_date");
             this.photo= object.getString("poster_path");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -41,13 +45,28 @@ public class MovieItems implements Parcelable {
         return description;
     }
 
-
     public String getDate() {
         return date;
     }
 
     public String getPhoto() {
         return photo;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     @Override
@@ -64,7 +83,7 @@ public class MovieItems implements Parcelable {
         dest.writeString(this.photo);
     }
 
-    private MovieItems(Parcel in) {
+    private TvShowItems(Parcel in) {
         this.id = in.readInt();
         this.title = in.readString();
         this.description = in.readString();
@@ -72,15 +91,15 @@ public class MovieItems implements Parcelable {
         this.photo = in.readString();
     }
 
-    public static final Parcelable.Creator<MovieItems> CREATOR = new Parcelable.Creator<MovieItems>() {
+    public static final Parcelable.Creator<TvShowItems> CREATOR = new Parcelable.Creator<TvShowItems>() {
         @Override
-        public MovieItems createFromParcel(Parcel source) {
-            return new MovieItems(source);
+        public TvShowItems createFromParcel(Parcel source) {
+            return new TvShowItems(source);
         }
 
         @Override
-        public MovieItems[] newArray(int size) {
-            return new MovieItems[size];
+        public TvShowItems[] newArray(int size) {
+            return new TvShowItems[size];
         }
     };
 }

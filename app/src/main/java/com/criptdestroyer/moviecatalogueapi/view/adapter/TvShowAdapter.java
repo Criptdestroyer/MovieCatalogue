@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.criptdestroyer.moviecatalogueapi.R;
-import com.criptdestroyer.moviecatalogueapi.model.TvShowItems;
+import com.criptdestroyer.moviecatalogueapi.model.entity.TvShowItems;
 import com.criptdestroyer.moviecatalogueapi.view.activity.DetailTvShowActivity;
 
 import java.util.ArrayList;

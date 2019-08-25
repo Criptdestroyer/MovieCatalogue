@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.criptdestroyer.moviecatalogueapi.R;
-import com.criptdestroyer.moviecatalogueapi.model.TvShowItems;
+import com.criptdestroyer.moviecatalogueapi.model.entity.TvShowItems;
 import com.criptdestroyer.moviecatalogueapi.view.activity.MainActivity;
 import com.criptdestroyer.moviecatalogueapi.view.adapter.TvShowAdapter;
 import com.criptdestroyer.moviecatalogueapi.viewmodel.MainViewModel;

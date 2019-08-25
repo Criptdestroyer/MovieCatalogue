@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.criptdestroyer.moviecatalogueapi.model.MovieItems;
-import com.criptdestroyer.moviecatalogueapi.model.TvShowItems;
+import com.criptdestroyer.moviecatalogueapi.model.entity.MovieItems;
+import com.criptdestroyer.moviecatalogueapi.model.entity.TvShowItems;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 

@@ -18,6 +18,11 @@
     <string name="change_language_settings">Change Language</string>
     <string name="text_description">There is no description</string>
     <string name="btn_fav">Favorite</string>
+    <string name="favorite">Favorite</string>
+    <string name="title_activity_favorite">FavoriteActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.criptdestroyer.moviecatalogueapi.R;
-import com.criptdestroyer.moviecatalogueapi.model.MovieItems;
+import com.criptdestroyer.moviecatalogueapi.model.entity.MovieItems;
 import com.criptdestroyer.moviecatalogueapi.view.activity.DetailMovieActivity;
 
 import java.util.ArrayList;

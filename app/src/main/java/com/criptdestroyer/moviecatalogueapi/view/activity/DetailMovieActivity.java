@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,16 +15,25 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.criptdestroyer.moviecatalogueapi.R;
-import com.criptdestroyer.moviecatalogueapi.model.MovieItems;
+import com.criptdestroyer.moviecatalogueapi.model.db.FavoriteHelper;
+import com.criptdestroyer.moviecatalogueapi.model.entity.MovieItems;
 import com.criptdestroyer.moviecatalogueapi.viewmodel.DetailViewModel;
 
-public class DetailMovieActivity extends AppCompatActivity implements View.OnClickListener{
+import java.util.ArrayList;
+
+public class DetailMovieActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String EXTRA_FILM = "extra_film";
     private TextView tvTitle;
     private TextView tvDate;
     private ImageView imgPhoto;
     private ProgressBar progressBar;
+    private MovieItems dataItem;
+    private Button btnFavorite;
+    private boolean isFavorite = false;
 
+    private FavoriteHelper favoriteHelper;
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,18 +42,20 @@ public class DetailMovieActivity extends AppCompatActivity implements View.OnCli
         TextView tvDescription = findViewById(R.id.tv_detail_movie_description);
         TextView tvTrTitle = findViewById(R.id.tr_tv_movie_title);
         TextView tvTrDate = findViewById(R.id.tr_tv_movie_date);
-        Button btnFavorite = findViewById(R.id.btn_fav);
+        btnFavorite = findViewById(R.id.btn_fav_movie);
         progressBar = findViewById(R.id.progressBarMovieDetail);
         tvTitle = findViewById(R.id.tv_detail_movie_title);
         tvDate = findViewById(R.id.tv_detail_movie_year);
         imgPhoto = findViewById(R.id.img_detail_movie_photo);
 
         btnFavorite.setOnClickListener(this);
+        favoriteHelper = FavoriteHelper.getInstance(getApplicationContext());
+        favoriteHelper.open();
 
-        MovieItems dataItem = getIntent().getParcelableExtra(EXTRA_FILM);
+        dataItem = getIntent().getParcelableExtra(EXTRA_FILM);
 
         if (dataItem != null) {
-            if(dataItem.getDescription() != null){
+            if (dataItem.getDescription() != null) {
                 tvDescription.setText(dataItem.getDescription());
             }
             tvTrTitle.setText(dataItem.getTitle());
@@ -54,16 +66,24 @@ public class DetailMovieActivity extends AppCompatActivity implements View.OnCli
             detailViewModel.setMovie(dataItem.getId(), MainActivity.locale_language);
         }
 
+        ArrayList<MovieItems> favorite = favoriteHelper.getFavoriteMovie();
+        for (int i = 0; i < favorite.size(); i++) {
+            if (favorite.get(i).getId() == dataItem.getId()) {
+                isFavorite = true;
+                btnFavorite.setText("Unfavorite");
+            }
+        }
+
         showLoading(true);
     }
 
     private Observer<MovieItems> getMovie = new Observer<MovieItems>() {
         @Override
         public void onChanged(MovieItems movieItems) {
-            if(movieItems != null){
+            if (movieItems != null) {
                 tvTitle.setText(movieItems.getTitle());
                 tvDate.setText(movieItems.getDate());
-                Glide.with(DetailMovieActivity.this).load("https://image.tmdb.org/t/p/w500"+movieItems.getPhoto()).placeholder(R.drawable.notfound).error(R.drawable.notfound).into(imgPhoto);
+                Glide.with(DetailMovieActivity.this).load("https://image.tmdb.org/t/p/w500" + movieItems.getPhoto()).placeholder(R.drawable.notfound).error(R.drawable.notfound).into(imgPhoto);
                 showLoading(false);
             }
         }
@@ -77,12 +97,29 @@ public class DetailMovieActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_fav:
-                Toast.makeText(this, "Add to Favorite", Toast.LENGTH_SHORT).show();
-                break;
+        if (view.getId() == R.id.btn_fav_movie) {
+            if (isFavorite) {
+                long result = favoriteHelper.deleteFav(dataItem.getId());
+                if (result > 0) {
+                    Toast.makeText(this, "Success Delete from Favorite", Toast.LENGTH_SHORT).show();
+                    btnFavorite.setText("Favorite");
+                    isFavorite = false;
+                } else {
+                    Toast.makeText(this, "Failed Delete from Favorite", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                long result = favoriteHelper.insertFavoriteMovie(dataItem);
+                if (result > 0) {
+                    Toast.makeText(this, "Success Add to Favorite", Toast.LENGTH_SHORT).show();
+                    btnFavorite.setText("Unfavorite");
+                    isFavorite = true;
+                } else {
+                    Toast.makeText(this, "Failed Add to Favorite", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 }
