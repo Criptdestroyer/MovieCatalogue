@@ -1,9 +1,5 @@
 package com.criptdestroyer.moviecatalogueapi.view.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +8,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
 import com.criptdestroyer.moviecatalogueapi.R;
@@ -29,9 +29,8 @@ public class DetailMovieActivity extends AppCompatActivity implements View.OnCli
     private ProgressBar progressBar;
     private MovieItems dataItem;
     private Button btnFavorite;
-    private boolean isFavorite = false;
-
     private FavoriteHelper favoriteHelper;
+    private boolean isFavorite = false;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -49,6 +48,7 @@ public class DetailMovieActivity extends AppCompatActivity implements View.OnCli
         imgPhoto = findViewById(R.id.img_detail_movie_photo);
 
         btnFavorite.setOnClickListener(this);
+
         favoriteHelper = FavoriteHelper.getInstance(getApplicationContext());
         favoriteHelper.open();
 

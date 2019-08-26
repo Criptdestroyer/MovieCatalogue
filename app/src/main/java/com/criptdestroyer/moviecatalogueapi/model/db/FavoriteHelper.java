@@ -21,14 +21,14 @@ public class FavoriteHelper {
 
     private static SQLiteDatabase database;
 
-    private FavoriteHelper(Context context){
+    private FavoriteHelper(Context context) {
         databaseHelper = new DatabaseHelper(context);
     }
 
-    public static FavoriteHelper getInstance(Context context){
-        if(INSTACE == null){
-            synchronized (SQLiteOpenHelper.class){
-                if(INSTACE == null){
+    public static FavoriteHelper getInstance(Context context) {
+        if (INSTACE == null) {
+            synchronized (SQLiteOpenHelper.class) {
+                if (INSTACE == null) {
                     INSTACE = new FavoriteHelper(context);
                 }
             }
@@ -36,32 +36,32 @@ public class FavoriteHelper {
         return INSTACE;
     }
 
-    public void open() throws SQLException{
+    public void open() throws SQLException {
         database = databaseHelper.getWritableDatabase();
     }
 
-    public void close(){
+    public void close() {
         databaseHelper.close();
 
-        if(database.isOpen()){
+        if (database.isOpen()) {
             database.close();
         }
     }
 
-    public ArrayList<MovieItems> getFavoriteMovie(){
+    public ArrayList<MovieItems> getFavoriteMovie() {
         ArrayList<MovieItems> arrayList = new ArrayList<>();
         Cursor cursor = database.query(DATABASE_TABLE, null,
-                DatabaseContract.FavColumns.TYPE +" = 'movie'",
+                DatabaseContract.FavColumns.TYPE + " = 'movie'",
                 null,
                 null,
                 null,
-                DatabaseContract.FavColumns.ID+" ASC",
+                DatabaseContract.FavColumns.ID + " ASC",
                 null);
 
         cursor.moveToFirst();
         MovieItems movieItems;
-        if(cursor.getCount() > 0){
-            do{
+        if (cursor.getCount() > 0) {
+            do {
                 movieItems = new MovieItems();
                 movieItems.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.FavColumns.ID)));
                 movieItems.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FavColumns.TITLE)));
@@ -71,13 +71,13 @@ public class FavoriteHelper {
 
                 arrayList.add(movieItems);
                 cursor.moveToNext();
-            }while(!cursor.isAfterLast());
+            } while (!cursor.isAfterLast());
         }
         cursor.close();
         return arrayList;
     }
 
-    public long insertFavoriteMovie(MovieItems items){
+    public long insertFavoriteMovie(MovieItems items) {
         ContentValues args = new ContentValues();
         args.put(DatabaseContract.FavColumns.ID, items.getId());
         args.put(DatabaseContract.FavColumns.TITLE, items.getTitle());
@@ -89,20 +89,20 @@ public class FavoriteHelper {
         return database.insert(DATABASE_TABLE, null, args);
     }
 
-    public ArrayList<TvShowItems> getFavoriteTv(){
+    public ArrayList<TvShowItems> getFavoriteTv() {
         ArrayList<TvShowItems> arrayList = new ArrayList<>();
         Cursor cursor = database.query(DATABASE_TABLE, null,
-                DatabaseContract.FavColumns.TYPE +" = 'tv'",
+                DatabaseContract.FavColumns.TYPE + " = 'tv'",
                 null,
                 null,
                 null,
-                DatabaseContract.FavColumns.ID+" ASC",
+                DatabaseContract.FavColumns.ID + " ASC",
                 null);
 
         cursor.moveToFirst();
         TvShowItems movieItems;
-        if(cursor.getCount() > 0){
-            do{
+        if (cursor.getCount() > 0) {
+            do {
                 movieItems = new TvShowItems();
                 movieItems.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.FavColumns.ID)));
                 movieItems.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FavColumns.TITLE)));
@@ -112,13 +112,13 @@ public class FavoriteHelper {
 
                 arrayList.add(movieItems);
                 cursor.moveToNext();
-            }while(!cursor.isAfterLast());
+            } while (!cursor.isAfterLast());
         }
         cursor.close();
         return arrayList;
     }
 
-    public long insertFavoriteTv(TvShowItems items){
+    public long insertFavoriteTv(TvShowItems items) {
         ContentValues args = new ContentValues();
         args.put(DatabaseContract.FavColumns.ID, items.getId());
         args.put(DatabaseContract.FavColumns.TITLE, items.getTitle());
@@ -130,8 +130,8 @@ public class FavoriteHelper {
         return database.insert(DATABASE_TABLE, null, args);
     }
 
-    public int deleteFav(int id){
-        return  database.delete(TABLE_FAV, DatabaseContract.FavColumns.ID+" = "+id, null);
+    public int deleteFav(int id) {
+        return database.delete(TABLE_FAV, DatabaseContract.FavColumns.ID + " = " + id, null);
     }
 
 }

@@ -13,17 +13,17 @@ public class MovieItems implements Parcelable {
     private String date;
     private String photo;
 
-    public MovieItems(){
+    public MovieItems() {
 
     }
 
-    public MovieItems(JSONObject object){
-        try{
+    public MovieItems(JSONObject object) {
+        try {
             this.id = object.getInt("id");
             this.title = object.getString("title");
-            this.description= object.getString("overview");
-            this.date= object.getString("release_date");
-            this.photo= object.getString("poster_path");
+            this.description = object.getString("overview");
+            this.date = object.getString("release_date");
+            this.photo = object.getString("poster_path");
         } catch (JSONException e) {
             e.printStackTrace();
         }

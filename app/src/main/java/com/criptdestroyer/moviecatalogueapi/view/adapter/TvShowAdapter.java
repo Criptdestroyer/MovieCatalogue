@@ -17,11 +17,10 @@ import com.criptdestroyer.moviecatalogueapi.view.activity.DetailTvShowActivity;
 
 import java.util.ArrayList;
 
-public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.DataViewHolder>{
+public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.DataViewHolder> {
     private ArrayList<TvShowItems> mData = new ArrayList<>();
 
-
-    public void setData(ArrayList<TvShowItems> items){
+    public void setData(ArrayList<TvShowItems> items) {
         mData.clear();
         mData.addAll(items);
         notifyDataSetChanged();
@@ -54,7 +53,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.DataViewHo
         return mData.size();
     }
 
-    class DataViewHolder extends RecyclerView.ViewHolder{
+    class DataViewHolder extends RecyclerView.ViewHolder {
         private TextView txtTitle;
         private TextView txtDate;
         private TextView txtDescription;
@@ -70,11 +69,11 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.DataViewHo
             imgPhoto = itemView.findViewById(R.id.img_item_photo);
         }
 
-        void bind(TvShowItems dataItems){
+        void bind(TvShowItems dataItems) {
             txtTitle.setText(dataItems.getTitle());
             txtDate.setText(dataItems.getDate());
             txtDescription.setText(dataItems.getDescription());
-            Glide.with(view).load("https://image.tmdb.org/t/p/w500"+dataItems.getPhoto()).placeholder(R.drawable.notfound).error(R.drawable.notfound).into(imgPhoto);
+            Glide.with(view).load("https://image.tmdb.org/t/p/w500" + dataItems.getPhoto()).placeholder(R.drawable.notfound).error(R.drawable.notfound).into(imgPhoto);
         }
     }
 }

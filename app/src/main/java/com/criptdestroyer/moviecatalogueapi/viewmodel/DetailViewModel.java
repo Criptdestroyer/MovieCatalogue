@@ -18,7 +18,6 @@ import java.util.Objects;
 
 import cz.msebera.android.httpclient.Header;
 
-
 public class DetailViewModel extends ViewModel {
     private static final String API_KEY = "4c6b99dfcd747c39e86b3552395539e2";
     private MutableLiveData<MovieItems> listDataMovie = new MutableLiveData<>();
@@ -26,7 +25,7 @@ public class DetailViewModel extends ViewModel {
 
     public void setMovie(int id, String language) {
         AsyncHttpClient client = new AsyncHttpClient();
-        String url = "https://api.themoviedb.org/3/movie/"+id+"?api_key=" + API_KEY + "&language="+language;
+        String url = "https://api.themoviedb.org/3/movie/" + id + "?api_key=" + API_KEY + "&language=" + language;
 
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
@@ -50,7 +49,7 @@ public class DetailViewModel extends ViewModel {
 
     public void setTvShow(int id, String language) {
         AsyncHttpClient client = new AsyncHttpClient();
-        String url = "https://api.themoviedb.org/3/tv/"+id+"?api_key=" + API_KEY + "&language="+language;
+        String url = "https://api.themoviedb.org/3/tv/" + id + "?api_key=" + API_KEY + "&language=" + language;
 
         client.get(url, new AsyncHttpResponseHandler() {
             @Override

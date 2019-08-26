@@ -1,9 +1,5 @@
 package com.criptdestroyer.moviecatalogueapi.view.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +9,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.bumptech.glide.Glide;
 import com.criptdestroyer.moviecatalogueapi.R;
 import com.criptdestroyer.moviecatalogueapi.model.db.FavoriteHelper;
@@ -21,7 +21,7 @@ import com.criptdestroyer.moviecatalogueapi.viewmodel.DetailViewModel;
 
 import java.util.ArrayList;
 
-public class DetailTvShowActivity extends AppCompatActivity implements View.OnClickListener{
+public class DetailTvShowActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String EXTRA_FILM = "extra_film";
     private TextView tvTitle;
     private TextView tvDate;
@@ -29,9 +29,8 @@ public class DetailTvShowActivity extends AppCompatActivity implements View.OnCl
     private ProgressBar progressBar;
     private TvShowItems dataItem;
     private Button btnFavorite;
-    private boolean isFavorite = false;
-
     private FavoriteHelper favoriteHelper;
+    private boolean isFavorite = false;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -49,14 +48,14 @@ public class DetailTvShowActivity extends AppCompatActivity implements View.OnCl
         imgPhoto = findViewById(R.id.img_detail_tv_show_photo);
 
         btnFavorite.setOnClickListener(this);
+
         favoriteHelper = FavoriteHelper.getInstance(getApplicationContext());
         favoriteHelper.open();
-
 
         dataItem = getIntent().getParcelableExtra(EXTRA_FILM);
 
         if (dataItem != null) {
-            if(dataItem.getDescription() != null){
+            if (dataItem.getDescription() != null) {
                 tvDescription.setText(dataItem.getDescription());
             }
             tvTrTitle.setText(dataItem.getTitle());
@@ -81,10 +80,10 @@ public class DetailTvShowActivity extends AppCompatActivity implements View.OnCl
     private Observer<TvShowItems> getTvShow = new Observer<TvShowItems>() {
         @Override
         public void onChanged(TvShowItems tvShowItems) {
-            if(tvShowItems != null){
+            if (tvShowItems != null) {
                 tvTitle.setText(tvShowItems.getTitle());
                 tvDate.setText(tvShowItems.getDate());
-                Glide.with(DetailTvShowActivity.this).load("https://image.tmdb.org/t/p/w500"+tvShowItems.getPhoto()).placeholder(R.drawable.notfound).error(R.drawable.notfound).into(imgPhoto);
+                Glide.with(DetailTvShowActivity.this).load("https://image.tmdb.org/t/p/w500" + tvShowItems.getPhoto()).placeholder(R.drawable.notfound).error(R.drawable.notfound).into(imgPhoto);
                 showLoading(false);
             }
         }

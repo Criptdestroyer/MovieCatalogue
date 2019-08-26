@@ -18,4 +18,7 @@
     <string name="change_language_settings">Ganti Bahasa</string>
     <string name="text_date">Tanggal</string>
     <string name="text_description">Tidak ada deskripsi</string>
+    <string name="btn_fav">Favorit</string>
+    <string name="favorite">Favorit</string>
+    <string name="title_activity_favorite">Favorit Activity</string>
 </resources>

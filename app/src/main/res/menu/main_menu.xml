@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_change_fav"
         android:title="@string/favorite"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_change_settings"
         android:title="@string/change_language_settings"

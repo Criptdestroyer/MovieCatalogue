@@ -28,7 +28,7 @@ public class MainViewModel extends ViewModel {
     public void setMovie(String language) {
         AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<MovieItems> listItems = new ArrayList<>();
-        String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&language="+language;
+        String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&language=" + language;
 
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
@@ -59,7 +59,7 @@ public class MainViewModel extends ViewModel {
     public void setTvShow(String language) {
         AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<TvShowItems> listItems = new ArrayList<>();
-        String url = "https://api.themoviedb.org/3/discover/tv?api_key=" + API_KEY + "&language="+language;
+        String url = "https://api.themoviedb.org/3/discover/tv?api_key=" + API_KEY + "&language=" + language;
 
         client.get(url, new AsyncHttpResponseHandler() {
             @Override

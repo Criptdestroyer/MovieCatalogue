@@ -1,7 +1,7 @@
 package com.criptdestroyer.moviecatalogueapi.model.db;
 
 
-public class DatabaseContract {
+class DatabaseContract {
     static String TABLE_FAV = "favorite";
 
     static final class FavColumns {
