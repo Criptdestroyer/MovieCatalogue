@@ -19,7 +19,6 @@
     <string name="text_description">There is no description</string>
     <string name="btn_fav">Favorite</string>
     <string name="favorite">Favorite</string>
-    <string name="title_activity_favorite">FavoriteActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
