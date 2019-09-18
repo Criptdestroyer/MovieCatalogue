@@ -19,6 +19,8 @@
     <string name="text_description">There is no description</string>
     <string name="btn_fav">Favorite</string>
     <string name="favorite">Favorite</string>
+    <string name="appwidget_text">FAVORITE BANNER</string>
+    <string name="empty_text">NO DATA</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
