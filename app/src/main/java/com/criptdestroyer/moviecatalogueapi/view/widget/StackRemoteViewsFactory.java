@@ -2,20 +2,13 @@ package com.criptdestroyer.moviecatalogueapi.view.widget;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
+import android.os.Binder;
 import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.transition.Transition;
 import com.criptdestroyer.moviecatalogueapi.R;
 import com.criptdestroyer.moviecatalogueapi.model.db.FavoriteHelper;
 import com.criptdestroyer.moviecatalogueapi.model.entity.MovieItems;
@@ -29,11 +22,13 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     private final List<String> list = new ArrayList<>();
     private final Context context;
+    private final long identityToken;
     private FavoriteHelper favoriteHelper;
 
     public StackRemoteViewsFactory(Context context) {
         this.context = context;
         favoriteHelper = FavoriteHelper.getInstance(context);
+        identityToken = Binder.clearCallingIdentity();
         favoriteHelper.open();
     }
 
@@ -46,6 +41,7 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     public void onDataSetChanged() {
         List<MovieItems> movieItems = favoriteHelper.getFavoriteMovie();
         List<TvShowItems> tvShowItems = favoriteHelper.getFavoriteTv();
+        list.clear();
 
         for (MovieItems movie:
              movieItems) {
@@ -61,7 +57,8 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public void onDestroy() {
-
+        Binder.restoreCallingIdentity(identityToken);
+        favoriteHelper.close();
     }
 
     @Override

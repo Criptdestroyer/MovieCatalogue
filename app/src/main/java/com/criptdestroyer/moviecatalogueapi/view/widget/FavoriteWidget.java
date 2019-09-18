@@ -3,12 +3,15 @@ package com.criptdestroyer.moviecatalogueapi.view.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
 
 import com.criptdestroyer.moviecatalogueapi.R;
+import com.criptdestroyer.moviecatalogueapi.view.activity.DetailMovieActivity;
+import com.criptdestroyer.moviecatalogueapi.view.activity.DetailTvShowActivity;
 
 /**
  * Implementation of App Widget functionality.
@@ -42,12 +45,16 @@ public class FavoriteWidget extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
         if(intent.getAction() != null){
             if(intent.getAction().equals(TOAST_ACTION)){
                 int viewIndex = intent.getIntExtra(EXTRA_ITEM, 0);
+            }else if(intent.getAction().equals(DetailTvShowActivity.UPDATE_WIDGET_FAVORITE) || intent.getAction().equals(DetailMovieActivity.UPDATE_WIDGET_FAVORITE)){
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                int[] ids = appWidgetManager.getAppWidgetIds(new ComponentName(context, FavoriteWidget.class));
+                appWidgetManager.notifyAppWidgetViewDataChanged(ids, R.id.stack_view);
             }
         }
+        super.onReceive(context, intent);
     }
 
     @Override

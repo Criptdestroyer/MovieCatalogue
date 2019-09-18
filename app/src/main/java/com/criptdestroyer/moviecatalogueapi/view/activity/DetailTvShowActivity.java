@@ -1,6 +1,7 @@
 package com.criptdestroyer.moviecatalogueapi.view.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +18,13 @@ import com.bumptech.glide.Glide;
 import com.criptdestroyer.moviecatalogueapi.R;
 import com.criptdestroyer.moviecatalogueapi.model.db.FavoriteHelper;
 import com.criptdestroyer.moviecatalogueapi.model.entity.TvShowItems;
+import com.criptdestroyer.moviecatalogueapi.view.widget.FavoriteWidget;
 import com.criptdestroyer.moviecatalogueapi.viewmodel.DetailViewModel;
 
 import java.util.ArrayList;
 
 public class DetailTvShowActivity extends AppCompatActivity implements View.OnClickListener {
+    public static String UPDATE_WIDGET_FAVORITE = "com.criptdestroyer.moviecatalogueapi.view.activity.UPDATE_FAVORITE";
     public static final String EXTRA_FILM = "extra_film";
     private TextView tvTitle;
     private TextView tvDate;
@@ -107,6 +110,8 @@ public class DetailTvShowActivity extends AppCompatActivity implements View.OnCl
                     Toast.makeText(this, "Success Delete from Favorite", Toast.LENGTH_SHORT).show();
                     btnFavorite.setText("Favorite");
                     isFavorite = false;
+
+                    sendUpdate();
                 } else {
                     Toast.makeText(this, "Failed Delete from Favorite", Toast.LENGTH_SHORT).show();
                 }
@@ -116,10 +121,18 @@ public class DetailTvShowActivity extends AppCompatActivity implements View.OnCl
                     Toast.makeText(this, "Success Add to Favorite", Toast.LENGTH_SHORT).show();
                     btnFavorite.setText("Unfavorite");
                     isFavorite = true;
+
+                    sendUpdate();
                 } else {
                     Toast.makeText(this, "Failed Add to Favorite", Toast.LENGTH_SHORT).show();
                 }
             }
         }
+    }
+
+    private void sendUpdate(){
+        Intent intent = new Intent(this, FavoriteWidget.class);
+        intent.setAction(UPDATE_WIDGET_FAVORITE);
+        sendBroadcast(intent);
     }
 }
