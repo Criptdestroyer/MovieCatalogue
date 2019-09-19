@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -47,6 +48,8 @@ public class MovieFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_movie, container, false);
         RecyclerView recyclerView = rootView.findViewById(R.id.rv_movie);
         progressBar = rootView.findViewById(R.id.progressBarMovie);
+        SearchView searchView = rootView.findViewById(R.id.sv_movie);
+        searchView.setQueryHint("Search Movie");
 
         adapter = new MovieAdapter();
         adapter.notifyDataSetChanged();
@@ -54,9 +57,31 @@ public class MovieFragment extends Fragment {
         favoriteHelper = FavoriteHelper.getInstance(rootView.getContext());
         favoriteHelper.open();
 
-        MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        final MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mainViewModel.getDataMovie().observe(this, getMovie);
         mainViewModel.setMovie(locale_language);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mainViewModel.searchMovie(query, locale_language);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mainViewModel.searchMovie(newText, locale_language);
+                return true;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                mainViewModel.setMovie(locale_language);
+                return true;
+            }
+        });
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -79,6 +104,9 @@ public class MovieFragment extends Fragment {
                             if (favoriteMovieSql.get(i).getId() == dataItems.get(j).getId()) {
                                 favoriteMovie.add(dataItems.get(j));
                                 break;
+                            }
+                            if(j == dataItems.size()-1){
+                                favoriteMovie.add(favoriteMovieSql.get(i));
                             }
                         }
                     }
