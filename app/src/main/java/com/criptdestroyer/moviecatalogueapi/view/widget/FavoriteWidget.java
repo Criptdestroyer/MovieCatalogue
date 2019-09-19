@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.criptdestroyer.moviecatalogueapi.R;
 import com.criptdestroyer.moviecatalogueapi.view.activity.DetailMovieActivity;
@@ -48,6 +49,7 @@ public class FavoriteWidget extends AppWidgetProvider {
         if(intent.getAction() != null){
             if(intent.getAction().equals(TOAST_ACTION)){
                 int viewIndex = intent.getIntExtra(EXTRA_ITEM, 0);
+                Toast.makeText(context, "Image "+viewIndex, Toast.LENGTH_SHORT).show();
             }else if(intent.getAction().equals(DetailTvShowActivity.UPDATE_WIDGET_FAVORITE) || intent.getAction().equals(DetailMovieActivity.UPDATE_WIDGET_FAVORITE)){
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
                 int[] ids = appWidgetManager.getAppWidgetIds(new ComponentName(context, FavoriteWidget.class));
