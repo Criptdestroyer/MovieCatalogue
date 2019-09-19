@@ -22,6 +22,10 @@
     <string name="appwidget_text">FAVORITE BANNER</string>
     <string name="empty_text">NO DATA</string>
     <string name="change_reminder_settings">Change Reminder</string>
+    <string name="release_reminder">Release Reminder</string>
+    <string name="release_reminder_detail">Reminder showing the movie that release today</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="daily_reminder_detail">Reminder to return app</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
