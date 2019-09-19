@@ -11,10 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view.activity.ReminderActivity"></activity>
+
         <receiver android:name=".view.widget.FavoriteWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.criptdestroyer.moviecatalogueapi.view.activity.UPDATE_FAVORITE"/>
+                <action android:name="com.criptdestroyer.moviecatalogueapi.view.activity.UPDATE_FAVORITE" />
             </intent-filter>
 
             <meta-data
@@ -34,8 +36,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
-            android:name="com.criptdestroyer.moviecatalogueapi.view.widget.StackWidgetService"
+            android:name=".view.widget.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 

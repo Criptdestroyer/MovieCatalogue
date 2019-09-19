@@ -21,6 +21,7 @@
     <string name="favorite">Favorite</string>
     <string name="appwidget_text">FAVORITE BANNER</string>
     <string name="empty_text">NO DATA</string>
+    <string name="change_reminder_settings">Change Reminder</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

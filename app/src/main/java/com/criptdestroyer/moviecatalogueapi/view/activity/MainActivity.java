@@ -84,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.action_change_fav) {
             Intent mIntent = new Intent(this, FavoriteActivity.class);
             startActivity(mIntent);
+        } else if(item.getItemId() == R.id.action_change_reminder){
+            Intent mIntent = new Intent(this, ReminderActivity.class);
+            startActivity(mIntent);
         }
         return super.onOptionsItemSelected(item);
     }
