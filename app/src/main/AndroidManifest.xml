@@ -40,6 +40,16 @@
         <service
             android:name=".view.widget.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver
+            android:name=".view.reminder.DailyReminder"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service android:name=".view.reminder.ReleaseReminder"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
     </application>
 
 </manifest>
