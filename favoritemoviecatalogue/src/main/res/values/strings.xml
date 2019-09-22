@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">FavoriteMovieCatalogue</string>
+    <string name="movie">Movie</string>
+    <string name="tv_show">Tv Show</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="item_image">Image</string>
+    <string name="item_title">Title</string>
+    <string name="year">2018</string>
+    <string name="description">Description</string>
+    <string name="movie_image">Movie Image</string>
+    <string name="detail">Detail</string>
+    <string name="title">Title</string>
+    <string name="lorem">lorem ipsun dolor</string>
+    <string name="text_date">Date</string>
+    <string name="source">Source</string>
+    <string name="source_link">themoviedb.org</string>
+    <string name="change_language_settings">Change Language</string>
+    <string name="text_description">There is no description</string>
+    <string name="btn_fav">Favorite</string>
+    <string name="favorite">Favorite</string>
+    <string name="appwidget_text">FAVORITE BANNER</string>
+    <string name="empty_text">NO DATA</string>
+    <string name="change_reminder_settings">Change Reminder</string>
+    <string name="release_reminder">Release Reminder</string>
+    <string name="release_reminder_detail">Reminder showing the movie that release today</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="daily_reminder_detail">Reminder to return app</string>
+</resources>

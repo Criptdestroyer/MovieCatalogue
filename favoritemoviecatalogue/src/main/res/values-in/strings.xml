@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Katalog Film</string>
+    <string name="app_name">Katalog Film Favorit</string>
     <string name="movie">Film</string>
     <string name="tv_show">Acara Tv</string>
 

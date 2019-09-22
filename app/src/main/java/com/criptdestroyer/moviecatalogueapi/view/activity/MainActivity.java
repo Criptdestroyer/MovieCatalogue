@@ -1,7 +1,11 @@
 package com.criptdestroyer.moviecatalogueapi.view.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
@@ -20,9 +24,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.Locale;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+import static com.criptdestroyer.moviecatalogueapi.model.db.DatabaseContract.FavColumns.CONTENT_URI;
+
+public class MainActivity extends AppCompatActivity{
     public static String locale_language;
     public static FavoriteHelper favoriteHelper;
+
+    private static HandlerThread handlerThread;
+    private DataObserver observer;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("Language: ", locale_language);
 
+        handlerThread = new HandlerThread("DataObserver");
+        handlerThread.start();
+        Handler handler = new Handler(handlerThread.getLooper());
+        observer = new DataObserver(handler, this);
+        getContentResolver().registerContentObserver(CONTENT_URI, true, observer);
+
         if (savedInstanceState == null) {
             navView.setSelectedItemId(R.id.navigation_movie);
         }
@@ -95,5 +110,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         favoriteHelper.close();
+    }
+
+    public static class DataObserver extends ContentObserver {
+        final Context context;
+
+        public DataObserver(Handler handler, Context context) {
+            super(handler);
+            this.context = context;
+        }
     }
 }

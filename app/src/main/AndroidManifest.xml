@@ -3,7 +3,8 @@
     package="com.criptdestroyer.moviecatalogueapi">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <permission android:name="com.criptdestroyer.moviecatalogueapi.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.criptdestroyer.moviecatalogueapi.WRITE_DATABASE" android:protectionLevel="normal"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -50,6 +51,13 @@
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+        <provider
+            android:authorities="com.criptdestroyer.moviecatalogueapi"
+            android:name="com.criptdestroyer.moviecatalogueapi.model.provider.FavoriteProvider"
+            android:exported="true"
+            android:readPermission="com.criptdestroyer.moviecatalogueapi.READ_DATABASE"
+            android:writePermission="com.criptdestroyer.moviecatalgoueapi.WRITE_DATABASE" />
     </application>
 
 </manifest>

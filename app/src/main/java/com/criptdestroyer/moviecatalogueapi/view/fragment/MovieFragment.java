@@ -33,6 +33,7 @@ public class MovieFragment extends Fragment {
     private boolean favorite;
     private FavoriteHelper favoriteHelper;
 
+
     public MovieFragment() {
 
     }

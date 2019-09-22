@@ -1,11 +1,11 @@
-package com.criptdestroyer.moviecatalogueapi.model.db;
-
+package com.example.favoritemoviecatalogue.model.db;
 
 import android.database.Cursor;
 import android.net.Uri;
 
-public final class DatabaseContract {
+public class DatabaseContract {
     public static final String AUTHORITY = "com.criptdestroyer.moviecatalogueapi";
+    private static final String SCHEME = "content";
     public static String TABLE_FAV = "favorite";
 
     private DatabaseContract(){}
@@ -18,7 +18,10 @@ public final class DatabaseContract {
         public static String PHOTO = "photo";
         public static String TYPE = "type";
 
-        public static final Uri CONTENT_URI = Uri.parse("content://"+AUTHORITY+"/"+TABLE_FAV);
+        public static final Uri CONTENT_URI = new Uri.Builder().scheme(SCHEME)
+                .authority(AUTHORITY)
+                .appendPath(TABLE_FAV)
+                .build();
     }
 
     public static String getColumnString(Cursor cursor, String columnName) {
