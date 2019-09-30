@@ -20,4 +20,11 @@
     <string name="text_description">Tidak ada deskripsi</string>
     <string name="btn_fav">Favorit</string>
     <string name="favorite">Favorit</string>
+    <string name="appwidget_text">FAVORIT BANNER</string>
+    <string name="empty_text">NO DATA</string>
+    <string name="change_reminder_settings">Ganti Pengingat</string>
+    <string name="release_reminder">Pengingat Terbit</string>
+    <string name="release_reminder_detail">Pegingat untuk menampilkan film yang terbit hari ini</string>
+    <string name="daily_reminder">Pengingat Harian</string>
+    <string name="daily_reminder_detail">Pengingat kembali ke aplikasi</string>
 </resources>

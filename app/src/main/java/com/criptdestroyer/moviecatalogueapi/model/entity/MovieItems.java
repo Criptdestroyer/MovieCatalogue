@@ -1,10 +1,15 @@
 package com.criptdestroyer.moviecatalogueapi.model.entity;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.criptdestroyer.moviecatalogueapi.model.db.DatabaseContract;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static com.criptdestroyer.moviecatalogueapi.model.db.DatabaseContract.getColumnString;
 
 public class MovieItems implements Parcelable {
     private int id;
@@ -15,6 +20,21 @@ public class MovieItems implements Parcelable {
 
     public MovieItems() {
 
+    }
+
+    public MovieItems(int id, String title, String description, String date, String photo) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.photo = photo;
+    }
+
+    public MovieItems(Cursor cursor){
+        this.id = Integer.parseInt(getColumnString(cursor, DatabaseContract.FavColumns.ID));
+        this.title = getColumnString(cursor, DatabaseContract.FavColumns.TITLE);
+        this.description = getColumnString(cursor, DatabaseContract.FavColumns.DESCRIPTION);
+        this.date = getColumnString(cursor, DatabaseContract.FavColumns.DATE);
     }
 
     public MovieItems(JSONObject object) {

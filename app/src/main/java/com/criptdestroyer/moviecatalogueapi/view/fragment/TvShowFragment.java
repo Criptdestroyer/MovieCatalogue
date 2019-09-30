@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -21,6 +22,8 @@ import com.criptdestroyer.moviecatalogueapi.view.adapter.TvShowAdapter;
 import com.criptdestroyer.moviecatalogueapi.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
+
+import static com.criptdestroyer.moviecatalogueapi.view.activity.MainActivity.locale_language;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +48,8 @@ public class TvShowFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_tv_show, container, false);
         RecyclerView recyclerView = rootView.findViewById(R.id.rv_tv_show);
         progressBar = rootView.findViewById(R.id.progressBarTvShow);
+        SearchView searchView = rootView.findViewById(R.id.sv_tv);
+        searchView.setQueryHint("Search Tv Show");
 
         adapter = new TvShowAdapter();
         adapter.notifyDataSetChanged();
@@ -52,9 +57,32 @@ public class TvShowFragment extends Fragment {
         favoriteHelper = FavoriteHelper.getInstance(rootView.getContext());
         favoriteHelper.open();
 
-        MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        final MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mainViewModel.getDataTvShow().observe(this, getTvShow);
         mainViewModel.setTvShow(MainActivity.locale_language);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mainViewModel.searchTvShow(query, locale_language);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mainViewModel.searchTvShow(newText, locale_language);
+                return true;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                mainViewModel.setTvShow(locale_language);
+                return true;
+            }
+        });
+
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -76,6 +104,9 @@ public class TvShowFragment extends Fragment {
                             if (favoriteTvSql.get(i).getId() == dataItems.get(j).getId()) {
                                 favoriteTv.add(dataItems.get(j));
                                 break;
+                            }
+                            if(j == dataItems.size()-1){
+                                favoriteTv.add(favoriteTvSql.get(i));
                             }
                         }
                     }
